@@ -1,0 +1,64 @@
+<mxfile host="app.diagrams.net" modified="2023-07-03T13:52:19.103Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/114.0" etag="vXmdMpq93nikVME5o5Zf" version="21.5.2" type="device">
+  <diagram name="Page-1" id="htDEeXGlB_QkYT8Hb9MT">
+    <mxGraphModel dx="2191" dy="942" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="in70z1ILgAUfOrTuzLVO-1" value="Bruker" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="260" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="in70z1ILgAUfOrTuzLVO-2" value="Verk (note)" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="420" y="260" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="in70z1ILgAUfOrTuzLVO-3" value="Artist" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="420" y="490" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="in70z1ILgAUfOrTuzLVO-5" value="Filer / Linker" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="420" y="50" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="in70z1ILgAUfOrTuzLVO-7" value="" style="fontSize=12;html=1;endArrow=ERzeroToMany;startArrow=ERmandOne;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="in70z1ILgAUfOrTuzLVO-1" target="in70z1ILgAUfOrTuzLVO-2">
+          <mxGeometry width="100" height="100" relative="1" as="geometry">
+            <mxPoint x="290" y="240" as="sourcePoint" />
+            <mxPoint x="390" y="140" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="in70z1ILgAUfOrTuzLVO-8" value="" style="fontSize=12;html=1;endArrow=ERzeroToMany;startArrow=ERoneToMany;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;startFill=0;" edge="1" parent="1" source="in70z1ILgAUfOrTuzLVO-2" target="in70z1ILgAUfOrTuzLVO-5">
+          <mxGeometry width="100" height="100" relative="1" as="geometry">
+            <mxPoint x="180" y="450" as="sourcePoint" />
+            <mxPoint x="440" y="450" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="in70z1ILgAUfOrTuzLVO-9" value="" style="fontSize=12;html=1;endArrow=ERzeroToMany;startArrow=ERoneToMany;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;startFill=0;" edge="1" parent="1" source="in70z1ILgAUfOrTuzLVO-2" target="in70z1ILgAUfOrTuzLVO-3">
+          <mxGeometry width="100" height="100" relative="1" as="geometry">
+            <mxPoint x="120" y="440" as="sourcePoint" />
+            <mxPoint x="320" y="520" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="in70z1ILgAUfOrTuzLVO-10" value="En bruker kan opprette null eller mange ulike noter" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="120" y="210" width="300" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="in70z1ILgAUfOrTuzLVO-11" value="&lt;div&gt;Mange verk kan være laget av en eller mange medvirkere (komponist, teksforfatter, m.m). &lt;br&gt;&lt;/div&gt;&lt;div&gt;En artist kan også ikke ha noen verk (de da er akkurat opprettet)&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="-30" y="400" width="510" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="in70z1ILgAUfOrTuzLVO-13" value="Instrumenter" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="690" y="260" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="in70z1ILgAUfOrTuzLVO-14" value="" style="fontSize=12;html=1;endArrow=ERzeroToMany;startArrow=ERoneToMany;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;startFill=0;" edge="1" parent="1" source="in70z1ILgAUfOrTuzLVO-2" target="in70z1ILgAUfOrTuzLVO-13">
+          <mxGeometry width="100" height="100" relative="1" as="geometry">
+            <mxPoint x="700" y="440" as="sourcePoint" />
+            <mxPoint x="660" y="630" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="in70z1ILgAUfOrTuzLVO-15" value="&lt;div&gt;Mange verk kan bruke samme instrument null eller flere ganger, &lt;br&gt;&lt;/div&gt;&lt;div&gt;feks 3 fioliner.&lt;br&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="495" y="340" width="370" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="in70z1ILgAUfOrTuzLVO-16" value="Ett verk kan ha null eller mange filer tilknyttet seg. Feks PDF, mp3, en link" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="510" y="160" width="420" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="in70z1ILgAUfOrTuzLVO-18" value="&lt;h1 class=&quot;section-h&quot;&gt;Entitet/relasjonsmodell&lt;/h1&gt;&lt;h1 class=&quot;section-h&quot;&gt;for notedatabasen&lt;br&gt;&lt;/h1&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="40" y="45" width="290" height="120" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
