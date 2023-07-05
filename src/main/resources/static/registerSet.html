@@ -13,13 +13,41 @@
         <label for="setName">Set Name:</label>
         <input type="text" id="setName" name="setName" required><br><br>
 
+        <label for="country">Country:</label>
+        <select id="country" name="country" autocomplete="country-name">
+            <option value="USA">United States</option>
+            <option value="CAN">Canada</option>
+            <option value="GBR">United Kingdom</option>
+            <option value="AUS">Australia</option>
+        </select>
+
+        <br><br>
+
+        <label for="contributors">Contributors:</label>
+        <p>Tips: you can add multiple values at the same time using semicolon (;) between each element. You can also use
+            the TAB key to enter the elements.</p>
+        <br>
+        <input type="text" id="contributorInput" name="contributors" list="contributorList"
+            placeholder="Enter a contributor">
+        <datalist id="contributorList">
+            <option value="Mozart"></option>
+            <option value="Bach"></option>
+            <option value="Beethoven"></option>
+        </datalist>
+
         <label for="role">Role:</label>
         <select id="role" name="role" multiple>
             <option value="composer">Composer</option>
             <option value="conductor">Conductor</option>
             <option value="orchestrator">Orchestrator</option>
             <option value="instrumentalist">Instrumentalist</option>
-        </select><br><br>
+        </select>
+        <button type="button" id="resetRoles">Reset roles</button>
+
+
+        <button type="button" id="addContributorButton">Add</button><br>
+        <ul id="contributorListDisplay"></ul><br>
+
 
         <label for="description">Description:</label><br>
         <textarea id="description" name="description" rows="4" cols="50"></textarea><br><br>
@@ -54,32 +82,50 @@
         <button type="button" id="addInstrumentButton">Add</button><br>
         <ul id="instrumentListDisplay"></ul><br>
 
-        <label for="files">Files:</label>
-        <input type="file" id="files" name="files" multiple><br><br>
+        <label for="file">File:</label>
+        <input type="file" id="fileInput" name="file" accept=".pdf,.doc,.docx,.txt">
+        <br>
+        <label for="link">Link:</label>
+        <input type="text" id="linkInput" name="link" placeholder="Enter a link">
+        <br>
+        <button type="button" id="addButton">Add</button>
+        <br>
+        <ul id="fileList"></ul>
+
 
         <input type="submit" value="Register Set">
     </form>
 
     <script>
+        const resetRolesButton = document.getElementById('resetRoles');
+        const roleSelect = document.getElementById('role');
+
+        resetRolesButton.addEventListener('click', () => {
+            roleSelect.selectedIndex = -1;
+        });
 
 
-
-
-        function handleAutoCompleteInput(inputId, buttonId, listDisplayId, listId) {
+        function handleAutoCompleteInput(inputId, buttonId, listDisplayId, listId, additionaListId = null) {
+            // Get references to the input field, add button, list display, and list options
             const input = document.getElementById(inputId);
             const button = document.getElementById(buttonId);
             const listDisplay = document.getElementById(listDisplayId);
             const listOptions = document.getElementById(listId).options;
-            const itemList = [];
 
+
+            const itemList = []; // Array to store the items in the list
+
+            // Add event listener to the button for adding items to the list
             button.addEventListener('click', addItemToList);
 
+            // Function to add items to the list
             function addItemToList() {
                 const inputValue = input.value.trim();
 
                 if (inputValue !== '') {
                     const items = inputValue.split(';');
 
+                    // Process each item
                     items.forEach((item) => {
                         item = item.trim();
 
@@ -92,6 +138,14 @@
                                 item = matchingOption.value;
                             }
 
+                            if (additionaListId) {
+                                const additionaListOptions = document.getElementById(additionaListId);
+                                const additionaListValues = Array.from(additionaListOptions.selectedOptions).map(({ value }) => value);
+                                item = `${item} (${additionaListValues.join(', ')})`;
+                                //additionaListOptions.selectedIndex = -1;
+                            }
+
+                            // Add the item to the list if it's not already present
                             if (!itemList.includes(item)) {
                                 itemList.push(item);
                             }
@@ -106,6 +160,7 @@
                 }
             }
 
+            // Add event listener for the "keydown" event on the input field to handle the Tab key press
             input.addEventListener('keydown', (event) => {
                 if (event.key === 'Tab' && !event.shiftKey) {
                     event.preventDefault();
@@ -113,6 +168,7 @@
                 }
             });
 
+            // Function to sort the items in the list
             function sortItemList() {
                 itemList.sort();
 
@@ -122,6 +178,7 @@
                 const sortedItems = itemList.slice().sort();
                 listDisplay.innerHTML = '';
 
+                // Create list items for each item in the sorted list and add remove buttons
                 sortedItems.forEach((item) => {
                     const listItem = document.createElement('li');
                     listItem.textContent = item;
@@ -129,6 +186,7 @@
                     const removeButton = document.createElement('button');
                     removeButton.textContent = 'Remove';
                     removeButton.addEventListener('click', () => {
+                        // Remove the item from the list when the remove button is clicked
                         const index = itemList.indexOf(item);
                         if (index > -1) {
                             itemList.splice(index, 1);
@@ -142,6 +200,7 @@
                 });
             }
 
+            // Create the "Remove All" button and add event listener to remove all items
             const removeAllButton = document.createElement('button');
             removeAllButton.textContent = 'Remove All';
             removeAllButton.addEventListener('click', () => {
@@ -150,121 +209,86 @@
                 removeAllButton.disabled = true;
             });
 
+            // Insert the "Remove All" button before the list display
             listDisplay.insertAdjacentElement('beforebegin', removeAllButton);
         }
+
         handleAutoCompleteInput('instrumentInput', 'addInstrumentButton', 'instrumentListDisplay', 'instrumentList');
+        handleAutoCompleteInput('contributorInput', 'addContributorButton', 'contributorListDisplay', 'contributorList', 'role');
 
+        // Array to store the files and links
+        const itemList = [];
 
+        // Get references to the input fields, add button, and list
+        const fileInput = document.getElementById('fileInput');
+        const linkInput = document.getElementById('linkInput');
+        const addButton = document.getElementById('addButton');
+        const fileList = document.getElementById('fileList');
 
+        // Add event listener to the add button
+        addButton.addEventListener('click', addItemToList);
 
+        // Function to add items to the list
+        function addItemToList() {
+            const file = fileInput.files[0];
+            const link = linkInput.value.trim();
 
+            if (file || link !== '') {
+                if (file) {
+                    itemList.push({ type: 'file', value: file.name });
+                }
 
+                if (link !== '') {
+                    itemList.push({ type: 'link', value: link });
+                }
 
+                renderList();
 
-        /*
-        const instrumentInput = document.getElementById('instrumentInput');
-        const addInstrumentButton = document.getElementById('addInstrumentButton');
-        const instrumentListDisplay = document.getElementById('instrumentListDisplay');
-        const instrumentOptionList = document.getElementById('instrumentList').options;
-        const instrumentList = [];
-
-        addInstrumentButton.addEventListener('click', addInstrumentToList);
-
-        function addInstrumentToList() {
-            // Get the value from the instrument input field and remove leading/trailing whitespace
-            const inputInstruments = instrumentInput.value.trim();
-
-            if (inputInstruments !== '') {
-                // Split the input value by semicolons to get individual instruments
-                const instruments = inputInstruments.split(';');
-
-                instruments.forEach((instrument) => {
-                    // Remove leading/trailing whitespace from each instrument
-                    instrument = instrument.trim();
-
-                    if (instrument !== '') {
-                        // Convert the search item to lowercase for case-insensitive search
-                        const searchForItem = instrument.toLowerCase();
-                        const options = Array.from(instrumentOptionList);
-
-                        // Find the first option that starts with the search item
-                        const matchingOption = options.find(option => option.value.toLowerCase().startsWith(searchForItem));
-
-                        if (matchingOption) {
-                            // Replace the instrument with the matching option value
-                            instrument = matchingOption.value;
-                        }
-
-                        // Add the instrument to the instrumentList array if is not in the list
-                        if (!instrumentList.includes(instrument)) {
-                            instrumentList.push(instrument);
-                        }
-
-                        // Clear the instrument input field
-                        instrumentInput.value = '';
-                    }
-                });
-
-                // Clear the instrument input field after adding instruments
-                instrumentInput.value = '';
-
-                // Sort the instruments in the list
-                sortInstrumentList();
+                // Clear the input fields
+                fileInput.value = '';
+                linkInput.value = '';
             }
         }
 
+        // Function to render the list
+        function renderList() {
+            // Clear the existing list
+            fileList.innerHTML = '';
 
-        // Add event listener for the "keydown" event on the instrument input field
-        instrumentInput.addEventListener('keydown', (event) => {
-            if (event.key === 'Tab' && !event.shiftKey) {
-                // Prevent the default Tab behavior (moving focus to the next element)
-                event.preventDefault();
-                // Call the addInstrumentToList() function to add the instrument
-                addInstrumentToList();
-            }
-        });
-
-
-        function sortInstrumentList() {
-            instrumentList.sort();
-            removeAllButton.disabled = instrumentList.length === 0;
-
-            // Sort and display the instruments in the list
-            const sortedInstruments = instrumentList.slice().sort();
-            instrumentListDisplay.innerHTML = '';
-            sortedInstruments.forEach((instrument) => {
+            // Create list items for each item in the array
+            itemList.forEach((item, index) => {
                 const listItem = document.createElement('li');
-                listItem.textContent = instrument;
+                const itemContent = document.createElement('div');
 
-                const removeButton = document.createElement('button');
-                removeButton.textContent = 'Remove';
-                removeButton.addEventListener('click', () => {
-                    const index = instrumentList.indexOf(instrument);
-                    if (index > -1) {
-                        instrumentList.splice(index, 1);
-                    }
-                    listItem.remove();
-                    sortInstrumentList(); // Sort the instruments after removing an instrument
-                });
+                if (item.type === 'file') {
+                    itemContent.textContent = `File: ${item.value}`;
+                } else if (item.type === 'link') {
+                    itemContent.textContent = `Link: ${item.value}`;
+                }
 
+                listItem.appendChild(itemContent);
+
+                const removeButton = createRemoveButton(listItem, index);
                 listItem.appendChild(removeButton);
-                instrumentListDisplay.appendChild(listItem);
+
+                fileList.appendChild(listItem);
             });
         }
 
+        // Function to create a remove button for an item
+        function createRemoveButton(listItem, index) {
+            const removeButton = document.createElement('button');
+            removeButton.textContent = 'Remove';
+            removeButton.addEventListener('click', () => {
+                // Remove the item from the array and render the updated list
+                itemList.splice(index, 1);
+                renderList();
+            });
 
-        const removeAllButton = document.createElement('button');
-        removeAllButton.textContent = 'Remove All';
-        removeAllButton.addEventListener('click', () => {
-            instrumentList.length = 0;
-            instrumentListDisplay.innerHTML = '';
-            removeAllButton.disabled = true;
-        });
+            return removeButton;
+        }
 
-        // Insert the "Remove All" button before the instrument list
-        instrumentListDisplay.insertAdjacentElement('beforebegin', removeAllButton);
 
-*/
 
         // Example usage: Access the instrument list array
         function submitForm() {
