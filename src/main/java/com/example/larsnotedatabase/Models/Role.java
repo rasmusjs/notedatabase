@@ -1,3 +1,5 @@
+package com.example.larsnotedatabase.Models;
+
 public class Role {
     private int id;
     private String name;

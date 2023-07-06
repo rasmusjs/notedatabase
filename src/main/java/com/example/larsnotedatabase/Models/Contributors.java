@@ -1,8 +1,13 @@
-import javax.persistence.*;
+package com.example.larsnotedatabase.Models;
+
+import jakarta.persistence.*;
+
+import java.sql.Date;
+
 
 @Entity
 @Table(name = "contributors")
-public class Contributor {
+public class Contributors {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -18,7 +23,7 @@ public class Contributor {
     private Country country;
 
     @Column(name = "birth_date", nullable = false)
-    private LocalDate birthDate;
+    private Date birthDate;
 
     // Constructors, Getters and Setters
     // ...

@@ -1,4 +1,8 @@
-import javax.persistence.*;
+package com.example.larsnotedatabase.Models;
+
+import jakarta.persistence.*;
+
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "files")
@@ -15,7 +19,7 @@ public class File {
     private String filePath;
 
     @Column(name = "upload_date", nullable = false)
-    private LocalDate uploadDate;
+    private Timestamp uploadDate;
 
     @Column(name = "real_name", length = 255)
     private String realName;

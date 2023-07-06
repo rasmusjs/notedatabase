@@ -1,3 +1,7 @@
+package com.example.larsnotedatabase.Models;
+
+import jakarta.persistence.*;
+
 @Entity
 @Table(name = "countries")
 public class Country {

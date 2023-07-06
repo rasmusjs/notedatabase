@@ -1,4 +1,8 @@
-import javax.persistence.*;
+package com.example.larsnotedatabase.Models;
+
+
+import jakarta.persistence.*;
+
 import java.time.LocalDate;
 
 @Entity
