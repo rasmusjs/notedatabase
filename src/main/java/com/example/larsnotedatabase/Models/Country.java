@@ -1,41 +1,44 @@
 package com.example.larsnotedatabase.Models;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "countries")
 public class Country {
-    @Id
-    @Column(name = "id")
-    private int id;
+	@Id
+	@Column(name = "id")
+	private int id;
 
-    @Column(name = "name", nullable = false)
-    private String name;
+	@Column(name = "name", nullable = false)
+	private String name;
 
-    // Constructors
-    public Country() {
-        // Default constructor
-    }
 
-    public Country(int id, String name) {
-        this.id = id;
-        this.name = name;
-    }
+	// Constructors
+	public Country(int id, String name) {
+		this.id = id;
+		this.name = name;
+	}
 
-    // Getters and Setters
-    public int getId() {
-        return id;
-    }
+	public Country() {
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	// Getters and Setters
+	public int getId() {
+		return id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 }

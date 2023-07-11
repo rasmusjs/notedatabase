@@ -24,8 +24,56 @@ public class File {
     @Column(name = "real_name", length = 255)
     private String realName;
 
-    // Constructors, Getters and Setters
-    // ...
+    // Constructors
+    public File(int id, OrchestralSet orchestralSet, String filePath, Timestamp uploadDate, String realName) {
+        this.id = id;
+        this.orchestralSet = orchestralSet;
+        this.filePath = filePath;
+        this.uploadDate = uploadDate;
+        this.realName = realName;
+    }
 
-    // Other fields, constructors, getters, setters, and methods omitted for brevity
+    public File() {
+    }
+
+    // Getters and Setters
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public OrchestralSet getOrchestralSet() {
+        return orchestralSet;
+    }
+
+    public void setOrchestralSet(OrchestralSet orchestralSet) {
+        this.orchestralSet = orchestralSet;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+
+    public Timestamp getUploadDate() {
+        return uploadDate;
+    }
+
+    public void setUploadDate(Timestamp uploadDate) {
+        this.uploadDate = uploadDate;
+    }
+
+    public String getRealName() {
+        return realName;
+    }
+
+    public void setRealName(String realName) {
+        this.realName = realName;
+    }
 }

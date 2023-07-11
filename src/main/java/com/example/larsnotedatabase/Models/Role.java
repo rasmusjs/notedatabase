@@ -1,33 +1,39 @@
 package com.example.larsnotedatabase.Models;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "role")
 public class Role {
-    private int id;
-    private String name;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	@Column(name = "name", nullable = false)
+	private String name;
 
-    // Constructors
-    public Role() {
-        // Default constructor
-    }
+	// Constructors
+	public Role(int id, String name) {
+		this.id = id;
+		this.name = name;
+	}
 
-    public Role(int id, String name) {
-        this.id = id;
-        this.name = name;
-    }
+	public Role() {
+	}
 
-    // Getters and Setters
-    public int getId() {
-        return id;
-    }
+	// Getters and Setters
+	public int getId() {
+		return id;
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 }

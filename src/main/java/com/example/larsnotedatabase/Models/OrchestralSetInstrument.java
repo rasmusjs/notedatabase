@@ -16,11 +16,6 @@ public class OrchestralSetInstrument {
         private int orchestralSetId;
         private int instrumentId;
 
-        // Constructors, getters, setters, and other methods
-
-        // Remember to override the `equals()` and `hashCode()` methods as well
-
-
         @ManyToOne
         @MapsId("orchestralSetId")
         @JoinColumn(name = "orchestral_set_id", nullable = false)
@@ -31,9 +26,48 @@ public class OrchestralSetInstrument {
         @JoinColumn(name = "instrument_id", nullable = false)
         private Instrument instrument;
 
-        // Constructors, Getters and Setters
-        // ...
+        // Constructors
+        public OrchestralSetInstrumentId(int orchestralSetId, int instrumentId, OrchestralSet orchestralSet, Instrument instrument) {
+            this.orchestralSetId = orchestralSetId;
+            this.instrumentId = instrumentId;
+            this.orchestralSet = orchestralSet;
+            this.instrument = instrument;
+        }
 
-        // Other fields, constructors, getters, setters, and methods omitted for brevity
+        public OrchestralSetInstrumentId() {
+        }
+
+        // Getters and Setters
+        public int getOrchestralSetId() {
+            return orchestralSetId;
+        }
+
+        public void setOrchestralSetId(int orchestralSetId) {
+            this.orchestralSetId = orchestralSetId;
+        }
+
+        public int getInstrumentId() {
+            return instrumentId;
+        }
+
+        public void setInstrumentId(int instrumentId) {
+            this.instrumentId = instrumentId;
+        }
+
+        public OrchestralSet getOrchestralSet() {
+            return orchestralSet;
+        }
+
+        public void setOrchestralSet(OrchestralSet orchestralSet) {
+            this.orchestralSet = orchestralSet;
+        }
+
+        public Instrument getInstrument() {
+            return instrument;
+        }
+
+        public void setInstrument(Instrument instrument) {
+            this.instrument = instrument;
+        }
     }
 }
