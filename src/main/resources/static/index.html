@@ -1,29 +1,38 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>Splash Page</title>
-    <script type="text/javascript" defer src=user.js></script>
+    <script type="text/javascript" defer src="user.js"></script>
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome to Our Website!</h1>
-    <p>Please choose an option:</p>
-    <h2>Login</h2>
-    <form id="loginForm">
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required><br><br>
+<h1>Welcome to Our Website!</h1>
+<p>Please choose an option:</p>
+<h2>Login</h2>
+<form id="loginForm">
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required><br><br>
 
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required><br><br>
-        <button id="forgotPasswordBtn">Forgot Password</button>
-        <input type="submit" value="Login">
-    </form>
-    <a href="register.html"><button>Register</button></a>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required><br><br>
 
+    <div id="errorContainer"></div>
 
-
-    <a href="registerSet.html"><button>Register orchestral set</button></a>
-
+    <button id="forgotPasswordBtn">Forgot Password</button>
+    <input type="submit" value="Login">
+</form>
+<a href="register.html">
+    <button>Register</button>
+</a>
+<a href="registerSet.html">
+    <button>Register orchestral set</button>
+</a>
+<a href="registerSet.html">
+    <button>Register orchestral set</button>
+</a>
 </body>
-
 </html>

@@ -9,31 +9,44 @@ loginForm && loginForm.addEventListener('submit', function (event) {
     const password = document.getElementById('password').value;
 
     const loginData = {
-        email: email,
-        password: password
+        email: email, password: password
     };
 
-    fetch(baseurl+"/login", {
-        method: 'POST',
-        headers: {
+    fetch(baseurl + "/login", {
+        method: 'POST', headers: {
             'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(loginData)
+        }, body: JSON.stringify(loginData)
     })
-        .then(response => {
+        .then(async response => {
             if (response.ok) {
                 // Successful response handling
                 console.log('Login successful!');
+                const user = JSON.stringify(response.json());
+                localStorage.setItem('username', user); //store a key/value
+                console.log(user.firstName)
             } else {
                 // Error response handling
-                console.log('Login failed!');
+                response.json().then(data => {
+                    const errorMessage = data.message || 'An error occurred during login.';
+                    showError(errorMessage);
+                });
             }
         })
         .catch(error => {
             // Network or other error handling
             console.log('An error occurred during login:', error);
+            showError('An error occurred during login. Please try again later.');
         });
 });
+
+const errorContainer = document.getElementById('errorContainer');
+
+
+function showError(message) {
+    errorContainer.textContent = message;
+    errorContainer.classList.add('error');
+}
+
 
 const forgotPasswordBtn = document.getElementById('forgotPasswordBtn');
 
@@ -44,12 +57,10 @@ forgotPasswordBtn && forgotPasswordBtn.addEventListener('click', function () {
         email: email
     };
 
-    fetch('<your_forgot_password_endpoint_url>', {
-        method: 'POST',
-        headers: {
+    fetch(baseurl + "/forgot", {
+        method: 'POST', headers: {
             'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(forgotPasswordData)
+        }, body: JSON.stringify(forgotPasswordData)
     })
         .then(response => {
             if (response.ok) {
@@ -134,7 +145,7 @@ registerForm && registerForm.addEventListener('submit', function (event) {
         password: password
     };
 
-    fetch(baseurl+"/create", {
+    fetch(baseurl + "/create", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -147,7 +158,10 @@ registerForm && registerForm.addEventListener('submit', function (event) {
                 console.log('Registration successful!');
             } else {
                 // Error response handling
-                console.log('Registration failed!');
+                response.json().then(data => {
+                    const errorMessage = data.message || 'An error occurred during login.';
+                    showError(errorMessage);
+                });
             }
         })
         .catch(error => {

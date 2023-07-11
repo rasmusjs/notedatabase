@@ -44,7 +44,7 @@ public class User {
 	public User() {
 	}
 
-	public static boolean validName(String name) {
+	public boolean validName(String name) {
 		return name.matches("[a-zøæåA-ZØÆÅ \\-]{2,256}");
 	}
 

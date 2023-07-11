@@ -10,9 +10,9 @@ CREATE TABLE users
     -- User's email address
     password          VARCHAR(100)                        NOT NULL,
     -- User's password
-    access_level      ENUM ('Admin', 'Moderator', 'User') NOT NULL,
+    access_level      ENUM ('Admin', 'Moderator', 'User') NOT NULL DEFAULT 'User',
     -- User's access level
-    registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- Date and time of user registration
+    registration_date TIMESTAMP                           NULL     DEFAULT CURRENT_TIMESTAMP -- Date and time of user registration
 );
 
 CREATE TABLE countries
