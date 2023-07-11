@@ -1,3 +1,5 @@
+const baseurl = "/user"
+
 const loginForm = document.getElementById('loginForm');
 
 loginForm && loginForm.addEventListener('submit', function (event) {
@@ -11,7 +13,7 @@ loginForm && loginForm.addEventListener('submit', function (event) {
         password: password
     };
 
-    fetch('<your_endpoint_url>', {
+    fetch(baseurl+"/login", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -132,7 +134,7 @@ registerForm && registerForm.addEventListener('submit', function (event) {
         password: password
     };
 
-    fetch('<your_register_endpoint_url>', {
+    fetch(baseurl+"/create", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
