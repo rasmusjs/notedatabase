@@ -12,22 +12,23 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@Column(name = "first_name", nullable = false)
+	@Column(name = "first_name", length = 50, nullable = false)
 	private String firstName;
 
-	@Column(name = "last_name", nullable = false)
+	@Column(name = "last_name", length = 50, nullable = false)
 	private String lastName;
 
-	@Column(name = "email", unique = true, nullable = false)
+	@Column(name = "email", length = 100, unique = true, nullable = false)
 	private String email;
 
-	@Column(name = "password", nullable = false)
+	@Column(name = "password", length = 100, nullable = false)
 	private String password;
 
+	@Enumerated(EnumType.STRING)
 	@Column(name = "access_level", nullable = false)
 	private String accessLevel;
 
-	@Column(name = "registration_date", nullable = false)
+	@Column(name = "registration_date", nullable = true, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp registrationDate;
 
 	// Constructors

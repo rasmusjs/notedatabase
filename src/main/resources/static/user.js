@@ -1,8 +1,31 @@
 const baseurl = "/user"
 
+
+const checkSession = () => {
+    return sessionStorage.getItem("user") != null;
+
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+   if (checkSession()){
+       alert("Logged in as "+ sessionStorage.getItem("user").firstName)
+   }
+});
+
+
+
 const loginForm = document.getElementById('loginForm');
 
 loginForm && loginForm.addEventListener('submit', function (event) {
+
+
+    if (checkSession()) {
+        const errorMessage = `You are logged inn as ${user.firstName}`;
+        showError(errorMessage);
+        return null;
+    }
+
+
     event.preventDefault(); // Prevents the form from submitting normally
 
     const email = document.getElementById('email').value;
@@ -156,6 +179,7 @@ registerForm && registerForm.addEventListener('submit', function (event) {
             if (response.ok) {
                 // Successful response handling
                 console.log('Registration successful!');
+                history.back()
             } else {
                 // Error response handling
                 response.json().then(data => {

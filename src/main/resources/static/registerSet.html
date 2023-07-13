@@ -3,307 +3,345 @@
 
 <head>
     <title>Register</title>
-    <script type="text/javascript" defer src=user.js></script>
 </head>
 
 <body>
-    <a href="index.html"><button>Back to index</button></a>
+<a href="index.html">
+    <button>Back to index</button>
+</a>
 
-    <form id="orchestralSetForm">
-        <label for="setName">Set Name:</label>
-        <input type="text" id="setName" name="setName" required><br><br>
+<form id="orchestralSetForm">
+    <label for="setName">Set Name:</label>
+    <input type="text" id="setName" name="setName" required>
 
-        <label for="country">Country:</label>
-        <select id="country" name="country" autocomplete="country-name">
-            <option value="USA">United States</option>
-            <option value="CAN">Canada</option>
-            <option value="GBR">United Kingdom</option>
-            <option value="AUS">Australia</option>
-        </select>
-
-        <br><br>
-
-        <label for="contributors">Contributors:</label>
-        <p>Tips: you can add multiple values at the same time using semicolon (;) between each element. You can also use
-            the TAB key to enter the elements.</p>
-        <br>
-        <input type="text" id="contributorInput" name="contributors" list="contributorList"
-            placeholder="Enter a contributor">
-        <datalist id="contributorList">
-            <option value="Mozart"></option>
-            <option value="Bach"></option>
-            <option value="Beethoven"></option>
-        </datalist>
-
-        <label for="role">Role:</label>
-        <select id="role" name="role" multiple>
-            <option value="composer">Composer</option>
-            <option value="conductor">Conductor</option>
-            <option value="orchestrator">Orchestrator</option>
-            <option value="instrumentalist">Instrumentalist</option>
-        </select>
-        <button type="button" id="resetRoles">Reset roles</button>
+    <label for="country">Country:</label>
+    <select id="country" name="country" autocomplete="country-name">
+        <option disabled>Choose country of origin</option>
+    </select>
 
 
-        <button type="button" id="addContributorButton">Add</button><br>
-        <ul id="contributorListDisplay"></ul><br>
+    <label for="contributorInput">Contributors:</label>
+    <p>Tips: you can add multiple values at the same time using semicolon (;) between each element. You can also use
+        the TAB key to enter the elements.</p>
+
+    <input type="text" id="contributorInput" name="contributors" list="contributorList"
+           placeholder="Enter a contributor">
+    <datalist id="contributorList">
+        <option value="Mozart"></option>
+        <option value="Bach"></option>
+        <option value="Beethoven"></option>
+    </datalist>
+
+    <label for="role">Role:</label>
+    <select id="role" name="role" multiple>
+        <option value="composer">Composer</option>
+        <option value="conductor">Conductor</option>
+        <option value="orchestrator">Orchestrator</option>
+        <option value="instrumentalist">Instrumentalist</option>
+    </select>
+    <button type="button" id="resetRoles">Reset roles</button>
 
 
-        <label for="description">Description:</label><br>
-        <textarea id="description" name="description" rows="4" cols="50"></textarea><br><br>
+    <button type="button" id="addContributorButton">Add</button>
 
-        <label for="date">Date:</label>
-        <input type="date" id="date" name="date"><br><br>
+    <ul id="contributorListDisplay"></ul>
 
 
-        <label for="instruments">Instruments:</label>
-        <p>Tips: you can add multiple values at the same time using semicolon ; between each element, you can also use
-            the
-            TAB key to enter the elements</p>
-        <br>
-        <input type="text" id="instrumentInput" name="instruments" list="instrumentList"
-            placeholder="Enter an instrument">
-        <datalist id="instrumentList">
-            <option value="Violin">
-            <option value="Viola">
-            <option value="Cello">
-            <option value="Double Bass">
-            <option value="Flute">
-            <option value="Clarinet">
-            <option value="Oboe">
-            <option value="Bassoon">
-            <option value="Trumpet">
-            <option value="Trombone">
-            <option value="French Horn">
-            <option value="Tuba">
-            <option value="Timpani">
-            <option value="Percussion">
-        </datalist>
-        <button type="button" id="addInstrumentButton">Add</button><br>
-        <ul id="instrumentListDisplay"></ul><br>
+    <label for="description">Description:</label>
+    <textarea id="description" name="description" rows="4" cols="50"></textarea>
 
-        <label for="file">File:</label>
-        <input type="file" id="fileInput" name="file" accept=".pdf,.doc,.docx,.txt">
-        <br>
-        <label for="link">Link:</label>
-        <input type="text" id="linkInput" name="link" placeholder="Enter a link">
-        <br>
-        <button type="button" id="addButton">Add</button>
-        <br>
-        <ul id="fileList"></ul>
+    <label for="date">Date:</label>
+    <input type="date" id="date" name="date">
 
 
-        <input type="submit" value="Register Set">
-    </form>
+    <label for="instrumentInput">Instruments:</label>
+    <p>Tips: you can add multiple values at the same time using semicolon ; between each element, you can also use
+        the
+        TAB key to enter the elements</p>
 
-    <script>
-        const resetRolesButton = document.getElementById('resetRoles');
-        const roleSelect = document.getElementById('role');
+    <input type="text" id="instrumentInput" name="instruments" list="instrumentList"
+           placeholder="Enter an instrument">
+    <datalist id="instrumentList">
+        <option value="Violin">
+        <option value="Viola">
+        <option value="Cello">
+        <option value="Double Bass">
+        <option value="Flute">
+        <option value="Clarinet">
+        <option value="Oboe">
+        <option value="Bassoon">
+        <option value="Trumpet">
+        <option value="Trombone">
+        <option value="French Horn">
+        <option value="Tuba">
+        <option value="Timpani">
+        <option value="Percussion">
+    </datalist>
+    <button type="button" id="addInstrumentButton">Add</button>
 
-        resetRolesButton.addEventListener('click', () => {
-            roleSelect.selectedIndex = -1;
-        });
+    <ul id="instrumentListDisplay"></ul>
 
 
-        function handleAutoCompleteInput(inputId, buttonId, listDisplayId, listId, additionaListId = null) {
-            // Get references to the input field, add button, list display, and list options
-            const input = document.getElementById(inputId);
-            const button = document.getElementById(buttonId);
-            const listDisplay = document.getElementById(listDisplayId);
-            const listOptions = document.getElementById(listId).options;
+    <label for="fileInput">File:</label>
+    <input type="file" id="fileInput" name="file" accept=".pdf,.doc,.docx,.txt">
+
+    <label for="linkInput">Link:</label>
+    <input type="text" id="linkInput" name="link" placeholder="Enter a link">
+
+    <button type="button" id="addButton">Add</button>
+
+    <ul id="fileList"></ul>
 
 
-            const itemList = []; // Array to store the items in the list
+    <input type="submit" value="Register Set">
+</form>
 
-            // Add event listener to the button for adding items to the list
-            button.addEventListener('click', addItemToList);
+<script>
+    const baseurlOrc = "/orchestralSet";
 
-            // Function to add items to the list
-            function addItemToList() {
-                const inputValue = input.value.trim();
 
-                if (inputValue !== '') {
-                    const items = inputValue.split(';');
+    const resetRolesButton = document.getElementById('resetRoles');
+    const roleSelect = document.getElementById('role');
 
-                    // Process each item
-                    items.forEach((item) => {
-                        item = item.trim();
+    resetRolesButton.addEventListener('click', () => {
+        roleSelect.selectedIndex = -1;
+    });
 
-                        if (item !== '') {
-                            const searchItem = item.toLowerCase();
-                            const options = Array.from(listOptions);
-                            const matchingOption = options.find(option => option.value.toLowerCase().startsWith(searchItem));
 
-                            if (matchingOption) {
-                                item = matchingOption.value;
-                            }
+    function handleAutoCompleteInput(inputId, buttonId, listDisplayId, listId, additionaListId = null) {
+        // Get references to the input field, add button, list display, and list options
+        const input = document.getElementById(inputId);
+        const button = document.getElementById(buttonId);
+        const listDisplay = document.getElementById(listDisplayId);
+        const listOptions = document.getElementById(listId).options;
 
-                            if (additionaListId) {
-                                const additionaListOptions = document.getElementById(additionaListId);
-                                const additionaListValues = Array.from(additionaListOptions.selectedOptions).map(({ value }) => value);
-                                item = `${item} (${additionaListValues.join(', ')})`;
-                                //additionaListOptions.selectedIndex = -1;
-                            }
 
-                            // Add the item to the list if it's not already present
-                            if (!itemList.includes(item)) {
-                                itemList.push(item);
-                            }
+        const itemList = []; // Array to store the items in the list
 
-                            input.value = '';
-                        }
-                    });
-
-                    input.value = '';
-
-                    sortItemList();
-                }
-            }
-
-            // Add event listener for the "keydown" event on the input field to handle the Tab key press
-            input.addEventListener('keydown', (event) => {
-                if (event.key === 'Tab' && !event.shiftKey) {
-                    event.preventDefault();
-                    addItemToList();
-                }
-            });
-
-            // Function to sort the items in the list
-            function sortItemList() {
-                itemList.sort();
-
-                // Enable or disable the remove all button based on the item list length
-                removeAllButton.disabled = itemList.length === 0;
-
-                const sortedItems = itemList.slice().sort();
-                listDisplay.innerHTML = '';
-
-                // Create list items for each item in the sorted list and add remove buttons
-                sortedItems.forEach((item) => {
-                    const listItem = document.createElement('li');
-                    listItem.textContent = item;
-
-                    const removeButton = document.createElement('button');
-                    removeButton.textContent = 'Remove';
-                    removeButton.addEventListener('click', () => {
-                        // Remove the item from the list when the remove button is clicked
-                        const index = itemList.indexOf(item);
-                        if (index > -1) {
-                            itemList.splice(index, 1);
-                        }
-                        listItem.remove();
-                        sortItemList();
-                    });
-
-                    listItem.appendChild(removeButton);
-                    listDisplay.appendChild(listItem);
-                });
-            }
-
-            // Create the "Remove All" button and add event listener to remove all items
-            const removeAllButton = document.createElement('button');
-            removeAllButton.textContent = 'Remove All';
-            removeAllButton.addEventListener('click', () => {
-                itemList.length = 0;
-                listDisplay.innerHTML = '';
-                removeAllButton.disabled = true;
-            });
-
-            // Insert the "Remove All" button before the list display
-            listDisplay.insertAdjacentElement('beforebegin', removeAllButton);
-        }
-
-        handleAutoCompleteInput('instrumentInput', 'addInstrumentButton', 'instrumentListDisplay', 'instrumentList');
-        handleAutoCompleteInput('contributorInput', 'addContributorButton', 'contributorListDisplay', 'contributorList', 'role');
-
-        // Array to store the files and links
-        const itemList = [];
-
-        // Get references to the input fields, add button, and list
-        const fileInput = document.getElementById('fileInput');
-        const linkInput = document.getElementById('linkInput');
-        const addButton = document.getElementById('addButton');
-        const fileList = document.getElementById('fileList');
-
-        // Add event listener to the add button
-        addButton.addEventListener('click', addItemToList);
+        // Add event listener to the button for adding items to the list
+        button.addEventListener('click', addItemToList);
 
         // Function to add items to the list
         function addItemToList() {
-            const file = fileInput.files[0];
-            const link = linkInput.value.trim();
+            const inputValue = input.value.trim();
 
-            if (file || link !== '') {
-                if (file) {
-                    itemList.push({ type: 'file', value: file.name });
-                }
+            if (inputValue !== '') {
+                const items = inputValue.split(';');
 
-                if (link !== '') {
-                    itemList.push({ type: 'link', value: link });
-                }
+                // Process each item
+                items.forEach((item) => {
+                    item = item.trim();
 
-                renderList();
+                    if (item !== '') {
+                        const searchItem = item.toLowerCase();
+                        const options = Array.from(listOptions);
+                        const matchingOption = options.find(option => option.value.toLowerCase().startsWith(searchItem));
 
-                // Clear the input fields
-                fileInput.value = '';
-                linkInput.value = '';
+                        if (matchingOption) {
+                            item = matchingOption.value;
+                        }
+
+                        if (additionaListId) {
+                            const additionaListOptions = document.getElementById(additionaListId);
+                            const additionaListValues = Array.from(additionaListOptions.selectedOptions).map(({value}) => value);
+                            item = `${item} (${additionaListValues.join(', ')})`;
+                            //additionaListOptions.selectedIndex = -1;
+                        }
+
+                        // Add the item to the list if it's not already present
+                        if (!itemList.includes(item)) {
+                            itemList.push(item);
+                        }
+
+                        input.value = '';
+                    }
+                });
+
+                input.value = '';
+
+                sortItemList();
             }
         }
 
-        // Function to render the list
-        function renderList() {
-            // Clear the existing list
-            fileList.innerHTML = '';
-
-            // Create list items for each item in the array
-            itemList.forEach((item, index) => {
-                const listItem = document.createElement('li');
-                const itemContent = document.createElement('div');
-
-                if (item.type === 'file') {
-                    itemContent.textContent = `File: ${item.value}`;
-                } else if (item.type === 'link') {
-                    itemContent.textContent = `Link: ${item.value}`;
-                }
-
-                listItem.appendChild(itemContent);
-
-                const removeButton = createRemoveButton(listItem, index);
-                listItem.appendChild(removeButton);
-
-                fileList.appendChild(listItem);
-            });
-        }
-
-        // Function to create a remove button for an item
-        function createRemoveButton(listItem, index) {
-            const removeButton = document.createElement('button');
-            removeButton.textContent = 'Remove';
-            removeButton.addEventListener('click', () => {
-                // Remove the item from the array and render the updated list
-                itemList.splice(index, 1);
-                renderList();
-            });
-
-            return removeButton;
-        }
-
-
-
-        // Example usage: Access the instrument list array
-        function submitForm() {
-            // Use the instrumentList array for further processing or sending to the server
-            console.log(instrumentList);
-            // Rest of the form submission logic...
-        }
-
-        const orchestralSetForm = document.getElementById('orchestralSetForm');
-        orchestralSetForm.addEventListener('submit', (event) => {
-            event.preventDefault();
-            submitForm();
+        // Add event listener for the "keydown" event on the input field to handle the Tab key press
+        input.addEventListener('keydown', (event) => {
+            if (event.key === 'Tab' && !event.shiftKey) {
+                event.preventDefault();
+                addItemToList();
+            }
         });
-    </script>
 
+        // Function to sort the items in the list
+        function sortItemList() {
+            itemList.sort();
+
+            // Enable or disable the remove all button based on the item list length
+            removeAllButton.disabled = itemList.length === 0;
+
+            const sortedItems = itemList.slice().sort();
+            listDisplay.innerHTML = '';
+
+            // Create list items for each item in the sorted list and add remove buttons
+            sortedItems.forEach((item) => {
+                const listItem = document.createElement('li');
+                listItem.textContent = item;
+
+                const removeButton = document.createElement('button');
+                removeButton.textContent = 'Remove';
+                removeButton.addEventListener('click', () => {
+                    // Remove the item from the list when the remove button is clicked
+                    const index = itemList.indexOf(item);
+                    if (index > -1) {
+                        itemList.splice(index, 1);
+                    }
+                    listItem.remove();
+                    sortItemList();
+                });
+
+                listItem.appendChild(removeButton);
+                listDisplay.appendChild(listItem);
+            });
+        }
+
+        // Create the "Remove All" button and add event listener to remove all items
+        const removeAllButton = document.createElement('button');
+        removeAllButton.textContent = 'Remove All';
+        removeAllButton.addEventListener('click', () => {
+            itemList.length = 0;
+            listDisplay.innerHTML = '';
+            removeAllButton.disabled = true;
+        });
+
+        // Insert the "Remove All" button before the list display
+        listDisplay.insertAdjacentElement('beforebegin', removeAllButton);
+    }
+
+    handleAutoCompleteInput('instrumentInput', 'addInstrumentButton', 'instrumentListDisplay', 'instrumentList');
+    handleAutoCompleteInput('contributorInput', 'addContributorButton', 'contributorListDisplay', 'contributorList', 'role');
+
+    // Array to store the files and links
+    const itemList = [];
+
+    // Get references to the input fields, add button, and list
+    const fileInput = document.getElementById('fileInput');
+    const linkInput = document.getElementById('linkInput');
+    const addButton = document.getElementById('addButton');
+    const fileList = document.getElementById('fileList');
+
+    // Add event listener to the add button
+    addButton.addEventListener('click', addItemToList);
+
+    // Function to add items to the list
+    function addItemToList() {
+        const file = fileInput.files[0];
+        const link = linkInput.value.trim();
+
+        if (file || link !== '') {
+            if (file) {
+                itemList.push({type: 'file', value: file.name});
+            }
+
+            if (link !== '') {
+                itemList.push({type: 'link', value: link});
+            }
+
+            renderList();
+
+            // Clear the input fields
+            fileInput.value = '';
+            linkInput.value = '';
+        }
+    }
+
+    // Function to render the list
+    function renderList() {
+        // Clear the existing list
+        fileList.innerHTML = '';
+
+        // Create list items for each item in the array
+        itemList.forEach((item, index) => {
+            const listItem = document.createElement('li');
+            const itemContent = document.createElement('div');
+
+            if (item.type === 'file') {
+                itemContent.textContent = `File: ${item.value}`;
+            } else if (item.type === 'link') {
+                itemContent.textContent = `Link: ${item.value}`;
+            }
+
+            listItem.appendChild(itemContent);
+
+            const removeButton = createRemoveButton(listItem, index);
+            listItem.appendChild(removeButton);
+
+            fileList.appendChild(listItem);
+        });
+    }
+
+    // Function to create a remove button for an item
+    function createRemoveButton(listItem, index) {
+        const removeButton = document.createElement('button');
+        removeButton.textContent = 'Remove';
+        removeButton.addEventListener('click', () => {
+            // Remove the item from the array and render the updated list
+            itemList.splice(index, 1);
+            renderList();
+        });
+
+        return removeButton;
+    }
+
+
+    // Example usage: Access the instrument list array
+    function submitForm() {
+        // Use the instrumentList array for further processing or sending to the server
+        console.log(instrumentList);
+        // Rest of the form submission logic...
+    }
+
+    const orchestralSetForm = document.getElementById('orchestralSetForm');
+    orchestralSetForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        submitForm();
+    });
+
+
+    const getCountries = () => {
+        fetch(baseurlOrc + "/getCountries", {
+            method: 'POST', headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => {
+                if (response.ok) {
+                    const countries = response.json();
+
+                    for (let i = 0; i < countries.length; i++) {
+                        let option = document.createElement("option");
+                        option.text = countries[i].name;
+                        option.value = countries[i].name;
+                        document.getElementById("country").add(option);
+                    }
+
+                } else {
+                    // Error response handling
+                    console.log('Failed to send forgot password email!');
+                }
+            })
+            .catch(error => {
+                // Network or other error handling
+                console.log('An error occurred while sending the forgot password email:', error);
+            });
+
+    }
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+        getCountries();
+    });
+
+
+</script>
 
 
 </body>

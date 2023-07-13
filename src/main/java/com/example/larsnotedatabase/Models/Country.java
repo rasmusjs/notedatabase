@@ -1,18 +1,15 @@
 package com.example.larsnotedatabase.Models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "countries")
 public class Country {
 	@Id
-	@Column(name = "id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@Column(name = "name", nullable = false)
+	@Column(name = "name", nullable = false, length = 100)
 	private String name;
 
 

@@ -1,3 +1,4 @@
+/*
 CREATE TABLE users
 (
     id                INT PRIMARY KEY AUTO_INCREMENT,
@@ -112,4 +113,4 @@ CREATE TABLE files
     real_name         VARCHAR(255),
     -- Real name of the file
     FOREIGN KEY (orchestral_set_id) REFERENCES orchestral_sets (id) -- Foreign key constraint referencing the orchestral_sets table
-);
+);*/

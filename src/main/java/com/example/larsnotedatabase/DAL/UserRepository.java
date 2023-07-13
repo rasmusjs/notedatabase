@@ -28,6 +28,8 @@ public class UserRepository {
 			if (queried != null && BCrypt.checkpw(user.getPassword(), queried.getPassword())) {
 				logout(); // Log the previous user out
 				session.setAttribute("userID", queried.getId());
+				queried.setPassword(null); // Don't send the password back
+				session.setAttribute("accessLevel", queried.getAccessLevel());
 				System.out.println("Logged in: " + queried.getEmail());
 				return queried;
 			}
@@ -112,7 +114,8 @@ public class UserRepository {
 	}
 
 	public boolean checkPrivileges() {
-		return session.getAttribute("admin") != null;
+		return session.getAttribute("userAccessLevel").equals("Admin") ||
+		session.getAttribute("userAccessLevel").equals("Moderator");
 	}
 
 	public void logout() {
