@@ -26,13 +26,12 @@ public class User {
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "access_level", nullable = false)
-	private String accessLevel;
-
+	private AccessLevel accessLevel;
 	@Column(name = "registration_date", nullable = true, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp registrationDate;
 
 	// Constructors
-	public User(int id, String firstName, String lastName, String email, String password, String accessLevel, Timestamp registrationDate) {
+	public User(int id, String firstName, String lastName, String email, String password, AccessLevel accessLevel, Timestamp registrationDate) {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -101,11 +100,11 @@ public class User {
 		return BCrypt.hashpw(password, BCrypt.gensalt(10));
 	}
 
-	public String getAccessLevel() {
+	public AccessLevel getAccessLevel() {
 		return accessLevel;
 	}
 
-	public void setAccessLevel(String accessLevel) {
+	public void setAccessLevel(AccessLevel accessLevel) {
 		this.accessLevel = accessLevel;
 	}
 
