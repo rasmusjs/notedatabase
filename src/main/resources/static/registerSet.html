@@ -1,83 +1,63 @@
 <!DOCTYPE html>
-<html>
+<html lang="nb">
 
 <head>
     <title>Register</title>
+    <link rel="stylesheet" href="main.css">
 </head>
 
 <body>
-<a href="index.html">
-    <button>Back to index</button>
-</a>
+<div class="back-to-index">
+    <a href="index.html">Back to index</a>
+</div>
 
 <form id="orchestralSetForm">
     <label for="setName">Set Name:</label>
-    <input type="text" id="setName" name="setName" required>
+    <input type="text" id="setName" name="setName" required placeholder="Name of the orchestra set">
 
     <label for="country">Country:</label>
-    <select id="country" name="country" autocomplete="country-name">
-        <option disabled>Choose country of origin</option>
-    </select>
+    <input type="text" id="country" name="country" list="countryList"
+           placeholder="Country of origin">
+    <datalist id="countryList"></datalist>
 
 
-    <label for="contributorInput">Contributors:</label>
-    <p>Tips: you can add multiple values at the same time using semicolon (;) between each element. You can also use
+    <p>Tips: you can add multiple values at the same time using semicolon (;) between each element. You can also
+        use
         the TAB key to enter the elements.</p>
 
-    <input type="text" id="contributorInput" name="contributors" list="contributorList"
-           placeholder="Enter a contributor">
-    <datalist id="contributorList">
-        <option value="Mozart"></option>
-        <option value="Bach"></option>
-        <option value="Beethoven"></option>
-    </datalist>
-
-    <label for="role">Role:</label>
-    <select id="role" name="role" multiple>
-        <option value="composer">Composer</option>
-        <option value="conductor">Conductor</option>
-        <option value="orchestrator">Orchestrator</option>
-        <option value="instrumentalist">Instrumentalist</option>
-    </select>
-    <button type="button" id="resetRoles">Reset roles</button>
-
-
-    <button type="button" id="addContributorButton">Add</button>
-
+    <div class="container">
+        <div class="left-div">
+            <label for="contributorInput">Contributor</label>
+            <input type="text" id="contributorInput" name="contributors" list="contributorList"
+                   placeholder="Name of contributor">
+            <datalist id="contributorList">
+            </datalist>
+            <button type="button" id="addContributorButton" class="btn-primary">Add</button>
+        </div>
+        <div class="right-div">
+            <label for="role">Role:</label>
+            <select id="role" name="role" multiple>
+                <option value="0">Composer</option>
+                <option value="2">Conductor</option>
+                <option value="3">Orchestrator</option>
+                <option value="4">Instrumentalist</option>
+            </select>
+            <button type="button" class="btn-danger" id="resetRoles">Clear</button>
+        </div>
+    </div>
     <ul id="contributorListDisplay"></ul>
-
-
     <label for="description">Description:</label>
     <textarea id="description" name="description" rows="4" cols="50"></textarea>
 
     <label for="date">Date:</label>
-    <input type="date" id="date" name="date">
-
+    <input type="date" id="date" name="date"/>
 
     <label for="instrumentInput">Instruments:</label>
-    <p>Tips: you can add multiple values at the same time using semicolon ; between each element, you can also use
-        the
-        TAB key to enter the elements</p>
-
     <input type="text" id="instrumentInput" name="instruments" list="instrumentList"
            placeholder="Enter an instrument">
     <datalist id="instrumentList">
-        <option value="Violin">
-        <option value="Viola">
-        <option value="Cello">
-        <option value="Double Bass">
-        <option value="Flute">
-        <option value="Clarinet">
-        <option value="Oboe">
-        <option value="Bassoon">
-        <option value="Trumpet">
-        <option value="Trombone">
-        <option value="French Horn">
-        <option value="Tuba">
-        <option value="Timpani">
-        <option value="Percussion">
     </datalist>
-    <button type="button" id="addInstrumentButton">Add</button>
+    <button type="button" id="addInstrumentButton" class="btn-primary">Add</button>
 
     <ul id="instrumentListDisplay"></ul>
 
@@ -88,12 +68,11 @@
     <label for="linkInput">Link:</label>
     <input type="text" id="linkInput" name="link" placeholder="Enter a link">
 
-    <button type="button" id="addButton">Add</button>
+    <button type="button" class="btn-primary" id="addButton">Add</button>
 
     <ul id="fileList"></ul>
 
-
-    <input type="submit" value="Register Set">
+    <button type="submit" class="btn-success">Register Set</button>
 </form>
 
 <script>
@@ -108,13 +87,12 @@
     });
 
 
-    function handleAutoCompleteInput(inputId, buttonId, listDisplayId, listId, additionaListId = null) {
+    function handleAutoCompleteInput(inputId, buttonId, listDisplayId, listId, additionalListId = null) {
         // Get references to the input field, add button, list display, and list options
         const input = document.getElementById(inputId);
         const button = document.getElementById(buttonId);
         const listDisplay = document.getElementById(listDisplayId);
         const listOptions = document.getElementById(listId).options;
-
 
         const itemList = []; // Array to store the items in the list
 
@@ -135,25 +113,37 @@
                     if (item !== '') {
                         const searchItem = item.toLowerCase();
                         const options = Array.from(listOptions);
-                        const matchingOption = options.find(option => option.value.toLowerCase().startsWith(searchItem));
+                        const matchingOption = options.find((option) =>
+                            option.value.toLowerCase().startsWith(searchItem)
+                        );
 
                         if (matchingOption) {
-                            item = matchingOption.value;
+                            item = {
+                                value: matchingOption.getAttribute('data-value'),
+                                text: matchingOption.innerHTML,
+                                additionalListValues: null,
+                            };
                         }
 
-                        if (additionaListId) {
-                            const additionaListOptions = document.getElementById(additionaListId);
-                            const additionaListValues = Array.from(additionaListOptions.selectedOptions).map(({value}) => value);
-                            item = `${item} (${additionaListValues.join(', ')})`;
-                            //additionaListOptions.selectedIndex = -1;
+                        if (additionalListId !== null) {
+                            const additionalListOptions = document.getElementById(additionalListId);
+                            const additionalListSelectedOptions = Array.from(additionalListOptions.selectedOptions);
+                            const additionalListData = additionalListSelectedOptions.map((option) => ({
+                                value: option.value,
+                                text: option.text
+                            }));
+                            item.text = `${item.text} (${additionalListData.map((data) => data.text).join(', ')})`;
+                            item.additionalListValues = additionalListData.map((data) => data.value);
                         }
+
 
                         // Add the item to the list if it's not already present
-                        if (!itemList.includes(item)) {
+                        const existingItem = itemList.find(
+                            (existingItem) => existingItem.value === item.value
+                        );
+                        if (!existingItem) {
                             itemList.push(item);
                         }
-
-                        input.value = '';
                     }
                 });
 
@@ -173,24 +163,29 @@
 
         // Function to sort the items in the list
         function sortItemList() {
-            itemList.sort();
+            itemList.sort((a, b) => a.text.localeCompare(b.text));
 
             // Enable or disable the remove all button based on the item list length
             removeAllButton.disabled = itemList.length === 0;
 
-            const sortedItems = itemList.slice().sort();
             listDisplay.innerHTML = '';
 
             // Create list items for each item in the sorted list and add remove buttons
-            sortedItems.forEach((item) => {
+            itemList.forEach((item) => {
                 const listItem = document.createElement('li');
-                listItem.textContent = item;
+                listItem.textContent = item.text;
+                listItem.setAttribute('data-value', item.value);
+                if (item.additionalListValues !== null) {
+                    listItem.setAttribute('data-role-value', item.additionalListValues);
+                }
 
                 const removeButton = document.createElement('button');
                 removeButton.textContent = 'Remove';
                 removeButton.addEventListener('click', () => {
                     // Remove the item from the list when the remove button is clicked
-                    const index = itemList.indexOf(item);
+                    const index = itemList.findIndex(
+                        (existingItem) => existingItem.value === item.value
+                    );
                     if (index > -1) {
                         itemList.splice(index, 1);
                     }
@@ -206,6 +201,7 @@
         // Create the "Remove All" button and add event listener to remove all items
         const removeAllButton = document.createElement('button');
         removeAllButton.textContent = 'Remove All';
+        removeAllButton.className = 'btn-danger';
         removeAllButton.addEventListener('click', () => {
             itemList.length = 0;
             listDisplay.innerHTML = '';
@@ -216,6 +212,7 @@
         listDisplay.insertAdjacentElement('beforebegin', removeAllButton);
     }
 
+    // Call the handleAutoCompleteInput function with the appropriate parameters for instrument and contributor inputs
     handleAutoCompleteInput('instrumentInput', 'addInstrumentButton', 'instrumentListDisplay', 'instrumentList');
     handleAutoCompleteInput('contributorInput', 'addContributorButton', 'contributorListDisplay', 'contributorList', 'role');
 
@@ -292,52 +289,163 @@
     }
 
 
-    // Example usage: Access the instrument list array
-    function submitForm() {
-        // Use the instrumentList array for further processing or sending to the server
-        console.log(instrumentList);
-        // Rest of the form submission logic...
-    }
+    const orchestralSetForm = document.getElementById("orchestralSetForm");
 
+    orchestralSetForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+
+        // Get the values from the form for contributors and their role
+        const contributorListDisplay = document.getElementById("contributorListDisplay");
+        const contributorListItems = Array.from(contributorListDisplay.getElementsByTagName("li"));
+
+        const contributorRole = [];
+
+        contributorListItems.forEach((item) => {
+            const contributorID = item.getAttribute("data-value");
+            const roleValue = item.getAttribute("data-role-value").split(",");
+
+            roleValue.forEach((role) => {
+                contributorRole.push({
+                    role: role.trim(),
+                    contributorID: contributorID,
+                });
+            });
+        });
+
+        console.log(contributorRole);
+
+
+        const instrumentListDisplay = document.getElementById("instrumentListDisplay");
+        const instrumentListItems = Array.from(instrumentListDisplay.getElementsByTagName("li"));
+        const instruments = instrumentListItems.map((item) =>
+            item.getAttribute("data-value")
+        );
+        console.log(instruments);
+
+
+        const form = event.target;
+
+        const formData = {
+            setName: form.elements.setName.value,
+            country: form.elements.country.getAttribute("data-value"),
+            contributorRole: contributorRole,
+            description: form.elements.description.value,
+            date: form.elements.date.value,
+            instruments: instruments,
+            file: form.elements.fileInput.files[0],
+            link: form.elements.linkInput.value,
+        };
+
+        fetch(baseurlOrc + "/newOrchestralSet", {
+            method: "POST",
+            body: JSON.stringify(formData),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error("Failed to register the set.");
+                }
+            })
+            .then((data) => {
+                console.log("Set registered successfully:", data);
+                // Handle the successful response as needed
+            })
+            .catch((error) => {
+                console.error("An error occurred while registering the set:", error);
+                // Handle the error case as needed
+            });
+    });
+
+
+    /*
     const orchestralSetForm = document.getElementById('orchestralSetForm');
     orchestralSetForm.addEventListener('submit', (event) => {
         event.preventDefault();
         submitForm();
+        console.log("Form submitted");
     });
+*/
 
-
-    const getCountries = () => {
-        fetch(baseurlOrc + "/getCountries", {
-            method: 'POST', headers: {
+    const fetchDataAndProcess = (url, callback) => {
+        fetch(url, {
+            method: 'POST',
+            headers: {
                 'Content-Type': 'application/json'
             }
         })
             .then(response => {
                 if (response.ok) {
-                    const countries = response.json();
-
-                    for (let i = 0; i < countries.length; i++) {
-                        let option = document.createElement("option");
-                        option.text = countries[i].name;
-                        option.value = countries[i].name;
-                        document.getElementById("country").add(option);
-                    }
-
+                    return response.json();
                 } else {
-                    // Error response handling
-                    console.log('Failed to send forgot password email!');
+                    throw new Error('Failed to fetch data.');
                 }
             })
+            .then(data => {
+                callback(data);
+            })
             .catch(error => {
-                // Network or other error handling
-                console.log('An error occurred while sending the forgot password email:', error);
+                console.log('An error occurred while fetching data:', error);
             });
+    };
 
-    }
+    const getContributors = () => {
+        const url = baseurlOrc + "/getContributors";
+        const handleContributors = (contributors) => {
+            const contributorSelect = document.getElementById("contributorList");
+            for (const item of contributors) {
+                let option = document.createElement("option");
+                if (item.firstName === null) item.firstName = "";
+                if (item.lastName === null) item.lastName = "";
+                if (item.old_name === null) item.old_name = "";
+                option.text = item.firstName + " " + item.lastName + " " + item.old_name;
+                option.setAttribute('data-value', item.id);
+                contributorSelect.appendChild(option);
+            }
+        };
 
+        fetchDataAndProcess(url, handleContributors);
+    };
+
+    const getCountries = () => {
+        const url = baseurlOrc + "/getCountries";
+        const handleCountries = (countries) => {
+            countries.sort((a, b) => a.name.localeCompare(b.name));
+            const countryList = document.getElementById("countryList");
+            for (const item of countries) {
+                let option = document.createElement("option");
+                option.text = item.name;
+                option.setAttribute('data-value', item.id);
+                countryList.appendChild(option);
+            }
+        };
+
+        fetchDataAndProcess(url, handleCountries);
+    };
+
+    const getInstruments = () => {
+        const url = baseurlOrc + "/getInstruments";
+        const handleInstruments = (instruments) => {
+            const instrumentSelect = document.getElementById("instrumentList");
+            for (const item of instruments) {
+                let option = document.createElement("option");
+                option.text = item.name;
+                option.setAttribute('data-value', item.id);
+                instrumentSelect.appendChild(option);
+            }
+        }
+
+        fetchDataAndProcess(url, handleInstruments);
+    };
 
     document.addEventListener('DOMContentLoaded', function () {
+        getContributors();
         getCountries();
+        getInstruments();
     });
 
 
