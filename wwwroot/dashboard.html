@@ -1,0 +1,60 @@
+<html lang="nb">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dashboard</title>
+
+
+    <script defer>
+        const baseurlOrc = "http://localhost:5077/api/Note";
+
+        const fetchDataAndProcess = (method, url, callback) => {
+            fetch(url, {
+                method: method,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error('Failed to fetch data.');
+                    }
+                })
+                .then(data => {
+                    callback(data);
+                })
+                .catch(error => {
+                    console.log('An error occurred while fetching data:', error);
+                });
+        };
+
+
+        const GetOrchestralSets = () => {
+            const url = baseurlOrc + "/GetOrchestralSets";
+            const handleOrchestralSets = (orcestralSet) => {
+                const table = document.getElementById("table");
+                for (const item of orcestralSet) {
+                    const entry = document.createElement("tr");
+                    entry.innerHTML = `<td>${item.name}</td><td>${item.description}</td><td>${item.id}</td>`;
+                    
+                    table.appendChild(entry);
+                }
+            }
+
+            fetchDataAndProcess('GET', url, handleOrchestralSets);
+        };
+
+        GetOrchestralSets();
+    </script>
+</head>
+<body>
+
+<h1>Dashboard</h1>
+<div id="table"></div>
+
+</body>
+</html>
