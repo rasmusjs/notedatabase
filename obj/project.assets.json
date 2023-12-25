@@ -3463,11 +3463,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/rasmus/RiderProjects/lars-notedatabase/lars-notedatabase.csproj",
+      "projectUniqueName": "/home/rasmus/RiderProjects/notedatabase/lars-notedatabase.csproj",
       "projectName": "lars-notedatabase",
-      "projectPath": "/home/rasmus/RiderProjects/lars-notedatabase/lars-notedatabase.csproj",
+      "projectPath": "/home/rasmus/RiderProjects/notedatabase/lars-notedatabase.csproj",
       "packagesPath": "/home/rasmus/.nuget/packages/",
-      "outputPath": "/home/rasmus/RiderProjects/lars-notedatabase/obj/",
+      "outputPath": "/home/rasmus/RiderProjects/notedatabase/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/rasmus/.nuget/NuGet/NuGet.Config"

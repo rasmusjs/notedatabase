@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "GtJVg/Ohk5CCSCOMm4C8hTQpqnSX5Vd/EJXW+31mCkk4Ll4wVft2/GnT1m40Du/m8Vei5ZszAeGM5OATaC9ASA==",
+  "dgSpecHash": "4jfn8u1kLrr4okXF4jVPfUx6mr3PIcs3JaeL4Ien/GrMZyADiWWIwAuilYpZ9A49qU5RmBixjemwPNUD9iBVZw==",
   "success": true,
-  "projectFilePath": "/home/rasmus/RiderProjects/lars-notedatabase/lars-notedatabase.csproj",
+  "projectFilePath": "/home/rasmus/RiderProjects/notedatabase/lars-notedatabase.csproj",
   "expectedPackageFiles": [
     "/home/rasmus/.nuget/packages/azure.core/1.25.0/azure.core.1.25.0.nupkg.sha512",
     "/home/rasmus/.nuget/packages/azure.identity/1.7.0/azure.identity.1.7.0.nupkg.sha512",
