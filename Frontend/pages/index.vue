@@ -1,7 +1,37 @@
-<template> 
-<!--
-  Taken form https://vuetifyjs.com/en/wireframes/constrained/
--->
+<script setup>
+import {useTheme} from 'vuetify'
+
+const links = [
+  'Dashboard',
+  'Messages',
+  'Profile',
+  'Updates',
+];
+
+const theme = useTheme()
+
+function toggleTheme() {
+  theme.global.name.value = theme.global.current.value.dark ? 'light' : 'dark'
+}
+</script>
+
+<script>
+export default {
+  data: () => ({
+    links: [
+      'Dashboard',
+      'Messages',
+      'Profile',
+      'Updates',
+    ],
+  }),
+}
+</script>
+
+<template>
+  <!--
+    Taken form https://vuetifyjs.com/en/wireframes/constrained/
+  -->
   <v-app id="inspire">
     <v-app-bar flat>
       <v-container class="mx-auto d-flex align-center justify-center">
@@ -17,7 +47,12 @@
             :text="link"
             variant="text"
         ></v-btn>
-
+        <v-btn
+            @click="toggleTheme"
+        >
+          <v-icon size="small"
+                  class="ml-md-auto" icon="mdi-theme-light-dark"/>
+        </v-btn>
         <v-spacer></v-spacer>
 
         <v-responsive max-width="160">
@@ -71,25 +106,3 @@
     </v-main>
   </v-app>
 </template>
-
-<script setup>
-const links = [
-  'Dashboard',
-  'Messages',
-  'Profile',
-  'Updates',
-]
-</script>
-
-<script>
-export default {
-  data: () => ({
-    links: [
-      'Dashboard',
-      'Messages',
-      'Profile',
-      'Updates',
-    ],
-  }),
-}
-</script>
