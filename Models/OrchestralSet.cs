@@ -1,8 +1,8 @@
-using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using lars_notedatabase.Models;
 using Newtonsoft.Json;
+
+namespace lars_notedatabase.Models;
 
 [Table("Orchestral_sets")]
 public class OrchestralSet

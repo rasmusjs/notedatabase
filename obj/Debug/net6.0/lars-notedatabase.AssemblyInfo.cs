@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("lars-notedatabase")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1fd7fbc07440fdb1d752217168186b1f444587ab")]
 [assembly: System.Reflection.AssemblyProductAttribute("lars-notedatabase")]
 [assembly: System.Reflection.AssemblyTitleAttribute("lars-notedatabase")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

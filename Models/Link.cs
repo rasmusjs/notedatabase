@@ -1,3 +1,5 @@
+namespace lars_notedatabase.Models;
+
 public class Link
 {
     public int? Id { get; set; }

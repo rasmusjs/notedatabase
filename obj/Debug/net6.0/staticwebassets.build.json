@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "xHO/xuJKvl1Z3PXSCkVWUTbrLxwvym6z86Jl8n815F8=",
+  "Hash": "f/BN7GFiVPzyWR3oblgptUmRMILzXI3nAzTYcNW75uI=",
   "Source": "lars-notedatabase",
   "BasePath": "_content/lars-notedatabase",
   "Mode": "Default",
@@ -10,22 +10,24 @@
     {
       "Name": "lars-notedatabase/wwwroot",
       "Source": "lars-notedatabase",
-      "ContentRoot": "/home/rasmus/RiderProjects/notedatabase/wwwroot/",
+      "ContentRoot": "/home/rasmus/Documents/Projects/RiderProjects/notedatabase/wwwroot/",
       "BasePath": "_content/lars-notedatabase",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "/home/rasmus/RiderProjects/notedatabase/wwwroot/dashboard.html",
+      "Identity": "/home/rasmus/Documents/Projects/RiderProjects/notedatabase/wwwroot/dashboard.html",
       "SourceId": "lars-notedatabase",
       "SourceType": "Discovered",
-      "ContentRoot": "/home/rasmus/RiderProjects/notedatabase/wwwroot/",
+      "ContentRoot": "/home/rasmus/Documents/Projects/RiderProjects/notedatabase/wwwroot/",
       "BasePath": "_content/lars-notedatabase",
       "RelativePath": "dashboard.html",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
@@ -34,15 +36,17 @@
       "OriginalItemSpec": "wwwroot/dashboard.html"
     },
     {
-      "Identity": "/home/rasmus/RiderProjects/notedatabase/wwwroot/registrerSet.html",
+      "Identity": "/home/rasmus/Documents/Projects/RiderProjects/notedatabase/wwwroot/registrerSet.html",
       "SourceId": "lars-notedatabase",
       "SourceType": "Discovered",
-      "ContentRoot": "/home/rasmus/RiderProjects/notedatabase/wwwroot/",
+      "ContentRoot": "/home/rasmus/Documents/Projects/RiderProjects/notedatabase/wwwroot/",
       "BasePath": "_content/lars-notedatabase",
       "RelativePath": "registrerSet.html",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",

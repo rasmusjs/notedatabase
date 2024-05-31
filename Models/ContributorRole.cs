@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
-using lars_notedatabase.Models;
+
+namespace lars_notedatabase.Models;
 
 public class ContributorRole
 {

@@ -268,7 +268,7 @@ public class NoteRepository<TEntity> : INoteRepository<TEntity> where TEntity : 
         try
         {
             // Finds the entity in the database
-            var entity = await _db.Set<TEntity>().FindAsync(id);
+            TEntity? entity = await _db.Set<TEntity>().FindAsync(id);
             // Error handling if there are no entity with the given id 
             if (entity == null)
             {
@@ -305,7 +305,7 @@ public class NoteRepository<TEntity> : INoteRepository<TEntity> where TEntity : 
         {
             // Source: https://learn.microsoft.com/en-us/ef/core/querying/sql-queries
             // According to the documentation it's faster to do this than to select all the tags and then remove them one by one for updating
-            var executeSqlAsync =
+            int executeSqlAsync =
                 await _db.Database.ExecuteSqlAsync($"DELETE FROM PostTag WHERE PostsPostId = {id}");
 
             // Error handling if it could not find the entity 

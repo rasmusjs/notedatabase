@@ -7,15 +7,15 @@ public static class DbInit
 {
     public static async void Seed(IApplicationBuilder app)
     {
-        using var serviceScope = app.ApplicationServices.CreateScope();
-        var context = serviceScope.ServiceProvider.GetRequiredService<NoteDbContext>();
+        using IServiceScope serviceScope = app.ApplicationServices.CreateScope();
+        NoteDbContext context = serviceScope.ServiceProvider.GetRequiredService<NoteDbContext>();
         
         await context.Database.EnsureDeletedAsync(); // Deletes database if it exists 
         await context.Database.EnsureCreatedAsync(); // Creates database if it doesn't exist
 
 
-        var countriesList = new List<Country>
-        {
+        List<Country> countriesList =
+        [
             new() { Id = 1, Name = "Skandinavia" },
             new() { Id = 2, Name = "Amerika" },
             new() { Id = 3, Name = "England" },
@@ -72,7 +72,7 @@ public static class DbInit
             new() { Id = 54, Name = "Tsjekkia" },
             new() { Id = 55, Name = "Tysk-sveitsisk" },
             new() { Id = 56, Name = "Malta" }
-        };
+        ];
 
         if (!context.Countries.Any())
         {
@@ -83,8 +83,8 @@ public static class DbInit
 
         if (!context.Instruments.Any())
         {
-            var instrumentList = new List<Instrument>
-            {
+            List<Instrument> instrumentList =
+            [
                 new() { Name = "Alt-saksofon i Eb 1" },
                 new() { Name = "Alt-saksofon i Eb 2" },
                 new() { Name = "Alt-saksofon i Eb 3" },
@@ -185,7 +185,7 @@ public static class DbInit
                 new() { Name = "Tuba" },
                 new() { Name = "Vibrafon" },
                 new() { Name = "Xylofon" }
-            };
+            ];
 
 
             await context.Instruments.AddRangeAsync(instrumentList);
@@ -195,13 +195,13 @@ public static class DbInit
 
         if (!context.Contributors.Any())
         {
-            var filePath = "DbImports/contributors.txt";
-            var lines = await File.ReadAllLinesAsync(filePath);
+            string filePath = "DbImports/contributors.txt";
+            string[] lines = await File.ReadAllLinesAsync(filePath);
 
-            var contributorList = lines.ToList();
+            List<string> contributorList = lines.ToList();
 
 
-            var filteredContributors = FilterContributors(contributorList);
+            List<Contributor> filteredContributors = FilterContributors(contributorList);
             /*foreach (var contributor in filteredContributors)
             {
                 Console.WriteLine(
@@ -211,30 +211,30 @@ public static class DbInit
 
             static List<Contributor> FilterContributors(List<string> contributors)
             {
-                var contributorList = new List<Contributor>();
+                List<Contributor> contributorList = [];
 
-                foreach (var contributorString in contributors)
+                foreach (string contributorString in contributors)
                 {
                     // Use a regular expression to extract names
-                    var match = Regex.Match(contributorString, @"^([\w\s.-]+)(?:\s\((\d{4})-(\d{4})\))?$");
+                    Match match = Regex.Match(contributorString, @"^([\w\s.-]+)(?:\s\((\d{4})-(\d{4})\))?$");
 
                     if (match.Success)
                     {
-                        var firstName = match.Groups[1].Value.Trim();
-                        var lastName = string.Empty;
+                        string firstName = match.Groups[1].Value.Trim();
+                        string lastName = string.Empty;
 
                         // Split the name into first and last name
-                        var names = firstName.Split(' ');
+                        string[] names = firstName.Split(' ');
                         if (names.Length > 1)
                         {
                             firstName = names[0];
                             lastName = names[1];
                         }
 
-                        var birthYear = match.Groups[2].Success ? int.Parse(match.Groups[2].Value) : (int?)null;
-                        var deathYear = match.Groups[3].Success ? int.Parse(match.Groups[3].Value) : (int?)null;
+                        int? birthYear = match.Groups[2].Success ? int.Parse(match.Groups[2].Value) : null;
+                        int? deathYear = match.Groups[3].Success ? int.Parse(match.Groups[3].Value) : null;
 
-                        var contributor = new Contributor
+                        Contributor contributor = new Contributor
                         {
                             FirstName = firstName,
                             LastName = lastName,
