@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Newtonsoft.Json;
 
 namespace lars_notedatabase.Models;
 
@@ -21,6 +22,5 @@ public class Contributor
     public virtual Country? Country { get; set; }
     [Column("Birth_date")] public DateTime? BirthDate { get; set; }
     [Column("Death_date")] public DateTime? DeathDate { get; set; }
-
-    public virtual List<ContributorRole>? ContributorRoles { get; set; }
+    [JsonIgnore] public virtual List<ContributorRole>? ContributorRoles { get; set; }
 }

@@ -19,12 +19,12 @@ public class NoteDbContext : DbContext
     public DbSet<FileAttachment> FileAttachments { get; set; } = null!;
 
     public DbSet<ContributorRole> ContributorRoles { get; set; } = null!;
-    
+
     public DbSet<Link> Links { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        // Configuring the many to many relationship between OrchestralSet's and Instruments's
+        // Configuring the many-to-many relationship between OrchestralSet's and Instruments's
         modelBuilder.Entity<OrchestralSet>()
             .HasMany(os => os.Instruments)
             .WithMany(i => i.OrchestralSets)
@@ -47,6 +47,13 @@ public class NoteDbContext : DbContext
                     j.HasKey("OrchestralSetId", "InstrumentId");
                     // Additional configuration if needed
                 });
+
+        // Configuring the many-to-one relationship between OrchestralSet and Country
+        modelBuilder.Entity<OrchestralSet>()
+            .HasOne(os => os.Country)    // Each OrchestralSet has one Country
+            .WithMany(c => c.OrchestralSets) // Each Country can have many OrchestralSets
+            .HasForeignKey(os => os.CountryId); // Foreign key in OrchestralSet is CountryId
+
 
         //modelBuilder.Entity<OrchestralSet>().HasMany(cr => cr.ContributorRole).WithOne(c => c.OrchestralSet).HasForeignKey(cr => ContributorRole.Con);
 

@@ -11,4 +11,7 @@ public class Country
     [Column("Name", TypeName = "varchar(100)")]
     [Required]
     public string Name { get; set; }
+    
+    // Navigation property for related OrchestralSets
+    public virtual ICollection<OrchestralSet>? OrchestralSets { get; set; }
 }

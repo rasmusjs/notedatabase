@@ -67,7 +67,6 @@ public class NoteController : Controller
         Console.WriteLine("CreateOrchestralSet");
         Console.WriteLine(orchestralSet.Name);
         Console.WriteLine(orchestralSet.Description);
-
         orchestralSet.Instruments = [];
 
         if (orchestralSet.InstrumentsId != null)
@@ -91,7 +90,7 @@ public class NoteController : Controller
             return StatusCode(500, "Internal server error while creating orchestral set please try again");
         }
 
-        return Ok(newOrchestralSet);
+        return Ok(newOrchestralSet.Id);
     }
 
 

@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 
 namespace lars_notedatabase.Models;
 
+[JsonObject(MemberSerialization.OptIn)] // Ignore all the base attributes
 [Table("Instruments")]
 public class Instrument
 {
@@ -11,12 +12,12 @@ public class Instrument
 
     [Column("Name", TypeName = "varchar(128)")]
     [Required]
+    [JsonProperty("Name")]
     public string Name { get; set; }
 
     [Column("Description", TypeName = "varchar(1024)")]
+    [JsonProperty("Description")]
     public string Description { get; set; } = string.Empty;
 
-    [JsonIgnore]
-    [InverseProperty("Instruments")]
-    public virtual List<OrchestralSet>? OrchestralSets { get; set; }
+    [InverseProperty("Instruments")] public virtual List<OrchestralSet>? OrchestralSets { get; set; }
 }
