@@ -42,6 +42,7 @@ public class OrchestralSet
     [NotMapped] public List<int>? ContributorsId { get; set; }
     [JsonProperty("Contributors")] public virtual List<ContributorRole>? Contributors { get; set; }
 
+    [JsonProperty("InstrumentsId")]
     [NotMapped] public List<int>? InstrumentsId { get; set; }
 
     [JsonProperty("Instruments")]

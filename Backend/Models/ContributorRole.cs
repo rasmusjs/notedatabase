@@ -3,7 +3,6 @@ using Newtonsoft.Json;
 
 namespace lars_notedatabase.Models;
 
-[JsonObject(MemberSerialization.OptIn)] // Ignore all the base attributes
 public class ContributorRole
 {
     public int Id { get; set; }

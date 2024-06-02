@@ -4,10 +4,13 @@ using Newtonsoft.Json;
 
 namespace lars_notedatabase.Models;
 
+/*
 [JsonObject(MemberSerialization.OptIn)] // Ignore all the base attributes
+*/
 [Table("Instruments")]
 public class Instrument
 {
+    [JsonProperty("Id")]
     [Key] public int Id { get; set; }
 
     [Column("Name", TypeName = "varchar(128)")]

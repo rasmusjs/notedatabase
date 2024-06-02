@@ -1,3 +1,4 @@
+using System.Net;
 using lars_notedatabase.DAL;
 using lars_notedatabase.Models;
 
@@ -69,20 +70,23 @@ public class NoteController : Controller
         Console.WriteLine(orchestralSet.Description);
         orchestralSet.Instruments = [];
 
-        if (orchestralSet.InstrumentsId != null)
+        if (orchestralSet.InstrumentsId == null)
         {
-            foreach (int id in orchestralSet.InstrumentsId)
-            {
-                Instrument? instrument = await _instrumentRepository.GetTById(id);
-                if (instrument != null) orchestralSet.Instruments.Add(instrument);
-            }
+            return StatusCode(StatusCodes.Status406NotAcceptable, "Instruments missing");
+        }
+
+        foreach (int id in orchestralSet.InstrumentsId)
+        {
+            Instrument? instrument = await _instrumentRepository.GetTById(id);
+            if (instrument != null) orchestralSet.Instruments.Add(instrument);
+            Console.WriteLine(id);
         }
 
         if (orchestralSet.LinkTransfer != null)
         {
             orchestralSet.Links = [];
             foreach (string url in orchestralSet.LinkTransfer) orchestralSet.Links.Add(new Link(url));
-        }
+        } 
 
         OrchestralSet? newOrchestralSet = await _orchestralSetRepository.Create(orchestralSet);
         if (newOrchestralSet == null)

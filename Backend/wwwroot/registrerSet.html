@@ -454,8 +454,8 @@
             const instrumentSelect = document.getElementById("instrumentList");
             for (const item of instruments) {
                 let option = document.createElement("option");
-                option.text = item.name;
-                option.setAttribute('data-value', item.id);
+                option.text = item.Name;
+                option.setAttribute('data-value', item.Id);
                 instrumentSelect.appendChild(option);
             }
         }

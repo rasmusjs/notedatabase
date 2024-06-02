@@ -10,7 +10,7 @@ public static class DbInit
         using IServiceScope serviceScope = app.ApplicationServices.CreateScope();
         NoteDbContext context = serviceScope.ServiceProvider.GetRequiredService<NoteDbContext>();
         
-        //await context.Database.EnsureDeletedAsync(); // Deletes database if it exists 
+        await context.Database.EnsureDeletedAsync(); // Deletes database if it exists 
         await context.Database.EnsureCreatedAsync(); // Creates database if it doesn't exist
 
 
