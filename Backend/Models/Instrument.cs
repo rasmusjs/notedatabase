@@ -10,8 +10,7 @@ namespace lars_notedatabase.Models;
 [Table("Instruments")]
 public class Instrument
 {
-    [JsonProperty("Id")]
-    [Key] public int Id { get; set; }
+    [JsonProperty("Id")] [Key] public int Id { get; set; }
 
     [Column("Name", TypeName = "varchar(128)")]
     [Required]
@@ -22,5 +21,7 @@ public class Instrument
     [JsonProperty("Description")]
     public string Description { get; set; } = string.Empty;
 
-    [InverseProperty("Instruments")] public virtual List<OrchestralSet>? OrchestralSets { get; set; }
+    [InverseProperty("Instruments")]
+    [JsonIgnore]
+    public virtual List<OrchestralSet>? OrchestralSets { get; set; }
 }
